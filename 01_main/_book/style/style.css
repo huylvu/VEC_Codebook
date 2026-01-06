@@ -1,0 +1,116 @@
+div.rmdnote, div.rstudio-tip, div.rmdwarning {
+  padding: 1em;
+  margin: 1em 0;
+  padding-left: 100px;
+  background-size: 70px;
+  background-repeat: no-repeat;
+  background-position: 15px 1.5em;
+  min-height: 120px;
+  background-color: #ecf0f9;
+  max-width: 100%;
+  font-size: 0.85em;
+  letter-spacing: 1pt;
+}
+
+div.sourceCode {
+  font-size: 1.0rem;
+}
+
+/* Justify text alignment */
+p, li, td {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Keep headings left-aligned */
+h1, h2, h3, h4, h5, h6 {
+  text-align: left;
+}
+
+/* Keep table headers left-aligned */
+th {
+  text-align: left;
+}
+
+/* Keep code blocks left-aligned */
+pre, code {
+  text-align: left;
+}
+
+/* Fixed Table of Contents */
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+/* Ensure TOC is always expanded */
+#main-nav {
+  display: block !important;
+}
+
+/* Force TOC to always show all chapters */
+#book-toc {
+  display: block !important;
+}
+
+#book-toc ul {
+  display: block !important;
+}
+
+#book-toc li {
+  display: list-item !important;
+}
+
+/* Hide numbering for subsections (h3, h4, etc.) */
+h3:before, h4:before, h5:before, h6:before {
+  display: none !important;
+}
+
+/* Adjust spacing for unnumbered headings */
+h3, h4, h5, h6 {
+  counter-reset: none;
+  margin-left: 0;
+}
+
+/* Ensure proper TOC display */
+.tocify {
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+/* Make sidebar sticky */
+.col-lg-3.sidebar.sidebar-book {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+/* Cover image responsive design */
+.cover-image-container {
+  text-align: center;
+  margin: 2em 0;
+}
+
+.cover-image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Mobile responsive for cover image */
+@media (max-width: 768px) {
+  .cover-image-container img {
+    max-width: 200px;
+    height: auto;
+  }
+
+  /* Hide cover image on mobile, show below text instead */
+  #welcome img {
+    display: none;
+  }
+}
+

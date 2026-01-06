@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 2 Cleaning Process | Vietnam Enterprise Census Codebook</title>
+<meta name="author" content="DEPOCEN research team">
+<meta name="description" content="2.1 Overview This cleaning workflow is built for a dataset that spans 2000–2021, so it must handle many shifts over time: industry codes (VSIC 2008 → 2018), legal definitions of enterprise types,...">
+<meta name="generator" content="bookdown 0.44 with bs4_book()">
+<meta property="og:title" content="Chapter 2 Cleaning Process | Vietnam Enterprise Census Codebook">
+<meta property="og:type" content="book">
+<meta property="og:description" content="2.1 Overview This cleaning workflow is built for a dataset that spans 2000–2021, so it must handle many shifts over time: industry codes (VSIC 2008 → 2018), legal definitions of enterprise types,...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 2 Cleaning Process | Vietnam Enterprise Census Codebook">
+<meta name="twitter:description" content="2.1 Overview This cleaning workflow is built for a dataset that spans 2000–2021, so it must handle many shifts over time: industry codes (VSIC 2008 → 2018), legal definitions of enterprise types,...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Lato-0.4.10/font.css" rel="stylesheet">
+<link href="libs/Roboto_Mono-0.4.10/font.css" rel="stylesheet">
+<link href="libs/Montserrat-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Google Analytics (optional) --><!-- Uncomment and add your tracking ID if needed --><!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_TRACKING_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'YOUR_TRACKING_ID');
+    </script>
+    --><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style/style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h2>
+        <a href="index.html" title="">Vietnam Enterprise Census Codebook</a>
+      </h2>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="intro.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="active" href="cleaning.html"><span class="header-section-number">2</span> Cleaning Process</a></li>
+<li><a class="" href="summary-stats.html"><span class="header-section-number">3</span> Summary Statistics</a></li>
+<li><a class="" href="research-topics.html"><span class="header-section-number">4</span> Research Topics</a></li>
+<li><a class="" href="faqs.html">FAQs</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/depocen-cased/vec">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="cleaning" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> Cleaning Process<a class="anchor" aria-label="anchor" href="#cleaning"><i class="fas fa-link"></i></a>
+</h1>
+<div id="cleaning-overview" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Overview<a class="anchor" aria-label="anchor" href="#cleaning-overview"><i class="fas fa-link"></i></a>
+</h2>
+<p>This cleaning workflow is built for a dataset that spans 2000–2021, so it must handle many shifts over time: industry codes (VSIC 2008 → 2018), legal definitions of enterprise types, inconsistent variable names and option sets across years, unit changes (VND, thousand VND, million VND), and variables that appear only in certain years. The workflow therefore focuses on standardizing and harmonizing these differences before downstream cleaning and analysis.</p>
+</div>
+<div id="get-started" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> Get started<a class="anchor" aria-label="anchor" href="#get-started"><i class="fas fa-link"></i></a>
+</h2>
+<div id="folder-organization" class="section level3" number="2.2.1">
+<h3>
+<span class="header-section-number">2.2.1</span> Folder organization<a class="anchor" aria-label="anchor" href="#folder-organization"><i class="fas fa-link"></i></a>
+</h3>
+<p><em>[Mô tả cấu trúc thư mục cho quy trình cleaning]</em></p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Example folder structure</span></span>
+<span><span class="co"># 00_archived/  - Archived files</span></span>
+<span><span class="co"># 01_dofiles/   - Cleaning code</span></span>
+<span><span class="co"># 02_raw/       - Raw datasets</span></span>
+<span><span class="co"># 03_temp/      - Temporary files</span></span>
+<span><span class="co"># 04_clean/     - Cleaned datasets</span></span>
+<span><span class="co"># 05_codebook/  - Documentation</span></span></code></pre></div>
+</div>
+<div id="setting-up-the-environment" class="section level3" number="2.2.2">
+<h3>
+<span class="header-section-number">2.2.2</span> Setting up the environment<a class="anchor" aria-label="anchor" href="#setting-up-the-environment"><i class="fas fa-link"></i></a>
+</h3>
+<p><em>[Hướng dẫn setup môi trường làm việc]</em></p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Example setup code</span></span>
+<span><span class="co"># Set working directory</span></span>
+<span><span class="co"># Load required packages</span></span>
+<span><span class="co"># Define global variables</span></span></code></pre></div>
+</div>
+</div>
+<div id="data-issues" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> Common data issues<a class="anchor" aria-label="anchor" href="#data-issues"><i class="fas fa-link"></i></a>
+</h2>
+<p>One of the most structured and usable ways to handle the issues above is to build detailed codebooks and data dictionaries for each year, then merge them into a multi-year codebook that harmonizes the data for cleaning and analysis. The dataset also includes multiple questionnaires, so processing everything is time-intensive.</p>
+<p>The cleaning workflow for Questionnaire 01 (general enterprise information) focuses on:</p>
+<ul>
+<li>Defining and selecting the core variables needed for general enterprise information.</li>
+<li>Compiling, extracting, and creating codebooks/data dictionaries by year and multi-year, based on questionnaires and raw data, ensuring coverage for the selected variables.</li>
+<li>Writing code to harmonize the data: standardize variable names, labels, and values across years.</li>
+<li>Addressing remaining issues such as crosswalks for enterprise addresses, enterprise types, and industry codes (VSIC 2008/2018).</li>
+</ul>
+<div id="core-variables-needed" class="section level3" number="2.3.1">
+<h3>
+<span class="header-section-number">2.3.1</span> Core variables needed<a class="anchor" aria-label="anchor" href="#core-variables-needed"><i class="fas fa-link"></i></a>
+</h3>
+<p>Variables are organised into blocks that mirror the content structure of Questionnaire 01:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="62%">
+<col width="37%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Content block (Questionnaire 01)</th>
+<th align="left">Typical components</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Identification &amp; location</strong></td>
+<td align="left">Tax identification number<br>Enterprise code<br>Province/District/Commune<br>Detailed address<br>Ownership type<br>VSIC industry</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>General information</strong></td>
+<td align="left">Year of establishment<br>Operating status<br>Location inside/outside industrial or economic zones<br>Type of zone<br>Main and secondary economic activities</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Employment &amp; labour costs</strong></td>
+<td align="left">Employment at the beginning and end of the year<br>Female employees<br>Total wage bill, social insurance contributions, and other labour-related expenses</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Production and business results</strong></td>
+<td align="left">Turnover/net revenue<br>Cost of goods sold<br>Profit before tax<br>Corporate income tax</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Assets and liabilities</strong></td>
+<td align="left">Total assets at the beginning and end of the year<br>Current and non-current assets<br>Fixed assets (at historical cost) and depreciation<br>Work-in-progress construction<br>Total liabilities<br>Owners’ equity</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Taxes and budget payments</strong></td>
+<td align="left">Other payments to the State budget, as specified in the questionnaire</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>External trade and technology</strong></td>
+<td align="left">Export and import status<br>Relevant international trade activities and technology-related information</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="inconsistent-variable-names" class="section level3" number="2.3.2">
+<h3>
+<span class="header-section-number">2.3.2</span> Inconsistent variable names<a class="anchor" aria-label="anchor" href="#inconsistent-variable-names"><i class="fas fa-link"></i></a>
+</h3>
+<p>Variable names for each year will have a different name, but the content is the same. So we need to harmonize the variable names across years to ensure consistency and convenience for cleaning and analysis. For example, the variable name for “Province location of establishment” is tinh, matinh_d, MaTinh_Dieutra, matinh_dieutra for 2018, 2019, 2020, 2021 - 4 different variable names for the same content.</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Variable Name</th>
+<th align="left">2018</th>
+<th align="left">2019</th>
+<th align="left">2020</th>
+<th align="left">2021</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">ma tinh</td>
+<td align="left">tinh</td>
+<td align="left">matinh_d</td>
+<td align="left">MaTinh_Dieutra</td>
+<td align="left">matinh_dieutra</td>
+</tr></tbody>
+</table></div>
+</div>
+<div id="variables-containing-inconsistent-values" class="section level3" number="2.3.3">
+<h3>
+<span class="header-section-number">2.3.3</span> Variables containing inconsistent values<a class="anchor" aria-label="anchor" href="#variables-containing-inconsistent-values"><i class="fas fa-link"></i></a>
+</h3>
+<p>In many cases, the value labels for categorical variables change over survey waves.</p>
+<p>For example, the coding for type of enterprise or sector of enterprise may differ between survey waves. For example, the coding for “Type of enterprise” is 1-8 before the 2020, but after the 2020, it is 1-7 because there is no option for “4” (state Enterprise) after the 2020. With the sector of each enterprise, there are two main classification base on the VSIC 2008 and VSIC 2018, so we need to harmonize the value labels for the sector of each enterprise across years.</p>
+<p>For some special issues that should be considered such as: for some years, the currency unit is changed from VND to thousand VND or million VND, or the question is changed like from 2020, it combine 2 question “your firm have export activities” and “your firm have import activities” into 1 question “your firm have export and import activities”, so that, we cannot define what exactly type of international trade activities the enterprise has.</p>
+<p>Our cleaning process will focus mostly on these issues, other issues for data cleaning like missing values, duplicate records, outliers, etc. will be handled but not the main focus.</p>
+</div>
+</div>
+<div id="cleaning-steps" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Cleaning steps<a class="anchor" aria-label="anchor" href="#cleaning-steps"><i class="fas fa-link"></i></a>
+</h2>
+<div id="step-1-constructing-codebooks-and-data-dictionaries" class="section level3" number="2.4.1">
+<h3>
+<span class="header-section-number">2.4.1</span> Step 1: Constructing codebooks and data dictionaries<a class="anchor" aria-label="anchor" href="#step-1-constructing-codebooks-and-data-dictionaries"><i class="fas fa-link"></i></a>
+</h3>
+<p>Codebooks and data dictionaries are the foundation of the cleaning process. They provide the mapping of variable names, value labels, and other metadata across years. The codebooks and data dictionaries are constructed based on the questionnaires and raw data.</p>
+<p>For each year, we will construct a codebook and data dictionary that contains the variable names, value labels, and other metadata. The codebook and data dictionary are constructed based on the questionnaires and raw data. The most convinient way is to use a package from Stata, called iecodebook that developed by The world bank team. You can find the package <a href="https://github.com/worldbank/iecodebook">here</a>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb3-1"><a href="cleaning.html#cb3-1" tabindex="-1"></a>* ---------------------------------------------------------------------------</span>
+<span id="cb3-2"><a href="cleaning.html#cb3-2" tabindex="-1"></a>**# 0. CREATE CODEBOOK</span>
+<span id="cb3-3"><a href="cleaning.html#cb3-3" tabindex="-1"></a>* ---------------------------------------------------------------------------</span>
+<span id="cb3-4"><a href="cleaning.html#cb3-4" tabindex="-1"></a><span class="kw">foreach</span> <span class="fu">y</span> <span class="kw">of</span> <span class="kw">local</span> years {</span>
+<span id="cb3-5"><a href="cleaning.html#cb3-5" tabindex="-1"></a>    * Create <span class="kw">codebook</span> following World Bank standard</span>
+<span id="cb3-6"><a href="cleaning.html#cb3-6" tabindex="-1"></a>    cap iecodebook <span class="kw">template</span> <span class="kw">using</span> <span class="st">"$codebook/codebook_`y'.xlsx"</span>, <span class="kw">replace</span></span>
+<span id="cb3-7"><a href="cleaning.html#cb3-7" tabindex="-1"></a>}</span></code></pre></div>
+<p>However, the iecodebook package is not very flexible and it is not easy to use for our dataset because of the messsy of the raw dataset, it is not easy to identify the variable names and value labels for each year. So we decide use our own master codebook and develop a custom package for handling that kind of codebook.</p>
+<p>Our codebook is a Google Sheets file that contains the variable names, value labels, and other metadata across years. You can find the codebook <a href="https://docs.google.com/spreadsheets/d/1z1FoluAF2u6vSx7LM_uHxjLDjmr7d3JHDB1zvJiu-cs/edit?gid=0#gid=0">here</a>. The codebook is updated regularly to ensure the latest information. The structure of the codebook is as follows:</p>
+<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<colgroup>
+<col width="7%">
+<col width="4%">
+<col width="8%">
+<col width="5%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="4%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Citeria</th>
+<th align="left">Code</th>
+<th align="left">Code_name</th>
+<th align="left">label</th>
+<th align="left">code_2016</th>
+<th align="left">code_2017</th>
+<th align="left">code_2018</th>
+<th align="left">code_2019</th>
+<th align="left">code_2020</th>
+<th align="left">code_2021</th>
+<th align="left">code_2022</th>
+<th align="left">Note</th>
+<th align="left"></th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">Địa chỉ tỉnh</td>
+<td align="left">a1</td>
+<td align="left">tinh</td>
+<td align="left">Province Address</td>
+<td align="left">tinh</td>
+<td align="left">tinh</td>
+<td align="left">tinh</td>
+<td align="left">matinh_d</td>
+<td align="left">MaTinh_Dieutra</td>
+<td align="left">matinh_dieutra</td>
+<td align="left">MaTinh_Dieutra</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr></tbody>
+</table></div>
+</div>
+<div id="step-2-variable-standardization" class="section level3" number="2.4.2">
+<h3>
+<span class="header-section-number">2.4.2</span> Step 2: Variable standardization<a class="anchor" aria-label="anchor" href="#step-2-variable-standardization"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="step-3-data-validation" class="section level3" number="2.4.3">
+<h3>
+<span class="header-section-number">2.4.3</span> Step 3: Data validation<a class="anchor" aria-label="anchor" href="#step-3-data-validation"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="step-4-data-transformation" class="section level3" number="2.4.4">
+<h3>
+<span class="header-section-number">2.4.4</span> Step 4: Data transformation<a class="anchor" aria-label="anchor" href="#step-4-data-transformation"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="step-5-final-checks" class="section level3" number="2.4.5">
+<h3>
+<span class="header-section-number">2.4.5</span> Step 5: Final checks<a class="anchor" aria-label="anchor" href="#step-5-final-checks"><i class="fas fa-link"></i></a>
+</h3>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="intro.html"><span class="header-section-number">1</span> Introduction</a></div>
+<div class="next"><a href="summary-stats.html"><span class="header-section-number">3</span> Summary Statistics</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <h2>VEC Codebook</h2>
+    <ul class="list-unstyled">
+<li><a href="https://github.com/depocen-cased/vec">View on GitHub <i class="fab fa-github"></i></a></li>
+      <li><a href="https://github.com/depocen-cased/vec/issues">Open an issue <i class="fas fa-question"></i></a></li>
+    </ul>
+<hr>
+<nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#cleaning"><span class="header-section-number">2</span> Cleaning Process</a></li>
+<li><a class="nav-link" href="#cleaning-overview"><span class="header-section-number">2.1</span> Overview</a></li>
+<li>
+<a class="nav-link" href="#get-started"><span class="header-section-number">2.2</span> Get started</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#folder-organization"><span class="header-section-number">2.2.1</span> Folder organization</a></li>
+<li><a class="nav-link" href="#setting-up-the-environment"><span class="header-section-number">2.2.2</span> Setting up the environment</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#data-issues"><span class="header-section-number">2.3</span> Common data issues</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#core-variables-needed"><span class="header-section-number">2.3.1</span> Core variables needed</a></li>
+<li><a class="nav-link" href="#inconsistent-variable-names"><span class="header-section-number">2.3.2</span> Inconsistent variable names</a></li>
+<li><a class="nav-link" href="#variables-containing-inconsistent-values"><span class="header-section-number">2.3.3</span> Variables containing inconsistent values</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#cleaning-steps"><span class="header-section-number">2.4</span> Cleaning steps</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#step-1-constructing-codebooks-and-data-dictionaries"><span class="header-section-number">2.4.1</span> Step 1: Constructing codebooks and data dictionaries</a></li>
+<li><a class="nav-link" href="#step-2-variable-standardization"><span class="header-section-number">2.4.2</span> Step 2: Variable standardization</a></li>
+<li><a class="nav-link" href="#step-3-data-validation"><span class="header-section-number">2.4.3</span> Step 3: Data validation</a></li>
+<li><a class="nav-link" href="#step-4-data-transformation"><span class="header-section-number">2.4.4</span> Step 4: Data transformation</a></li>
+<li><a class="nav-link" href="#step-5-final-checks"><span class="header-section-number">2.4.5</span> Step 5: Final checks</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/depocen-cased/vec/blob/main/02-cleaning-process.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/depocen-cased/vec/edit/main/02-cleaning-process.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Vietnam Enterprise Census Codebook</strong>" was written by DEPOCEN research team. It was last built on 2026-01-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

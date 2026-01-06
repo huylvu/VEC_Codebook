@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Vietnam Enterprise Census Codebook</title>
+  <meta name="description" content="This is codebook for VEC (Vietnam Enterprise Census) datasets harmonizing process by DEPOCEN. It provides comprehensive documentation for data cleaning and processing workflows." />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Vietnam Enterprise Census Codebook" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is codebook for VEC (Vietnam Enterprise Census) datasets harmonizing process by DEPOCEN. It provides comprehensive documentation for data cleaning and processing workflows." />
+  <meta name="github-repo" content="depocen-cased/vec" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Vietnam Enterprise Census Codebook" />
+  
+  <meta name="twitter:description" content="This is codebook for VEC (Vietnam Enterprise Census) datasets harmonizing process by DEPOCEN. It provides comprehensive documentation for data cleaning and processing workflows." />
+  
+
+<meta name="author" content="DEPOCEN research team" />
+
+
+<meta name="date" content="2026-01-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">VEC Codebook</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path=""><a href="#welcome"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#key-features"><i class="fa fa-check"></i>Key Features</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#what-is-this-codebook"><i class="fa fa-check"></i>What is this codebook?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#team-and-contributors"><i class="fa fa-check"></i>Team and contributors</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#contact-us"><i class="fa fa-check"></i>Contact us</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#license"><i class="fa fa-check"></i>License</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/depocen-cased/vec" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Vietnam Enterprise Census Codebook</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Vietnam Enterprise Census Codebook</h1>
+<p class="author"><em>DEPOCEN research team</em></p>
+<p class="date"><em>2026-01-06</em></p>
+</div>
+<div id="welcome" class="section level1 unnumbered hasAnchor">
+<h1>Welcome<a href="#welcome" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><a href="https://www.gso.gov.vn"><img src="figure/cover.png" width="280" height="380" alt="VEC Codebook Cover" align="right" style="margin: 0 0 1em 1em; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" /></a></p>
+<p>This is the <strong>VEC Codebook</strong> - comprehensive documentation for the <strong>Vietnam Enterprise Census (VEC)</strong> dataset harmonization and cleaning process by the DEPOCEN Research Team.</p>
+<p>The VEC Codebook provides detailed workflows, methodologies, and best practices for processing Vietnam’s enterprise census data, ensuring data quality and reproducibility for research and policy analysis.</p>
+<p><em>Note: This is version 1.0 of the codebook, published in December 2025.</em></p>
+<div id="key-features" class="section level2 unnumbered hasAnchor">
+<h2>Key Features<a href="#key-features" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The VEC Codebook offers comprehensive resources for researchers and analysts working with Vietnam’s enterprise census data:</p>
+<ul>
+<li>🔧 <strong>Data Cleaning Workflows:</strong>Step-by-step guides for harmonizing multi-year VEC datasets</li>
+<li>📊 <strong>Variable Documentation:</strong>Comprehensive metadata and variable dictionaries</li>
+<li>🏗️ <strong>Data Structure Overview:</strong>Understanding VEC data architecture and relationships</li>
+<li>📈 <strong>Quality Assurance:</strong>Validation methods and quality checks</li>
+<li>🔍 <strong>Research Applications:</strong>Examples of using cleaned VEC data for economic analysis</li>
+</ul>
+</div>
+<div id="what-is-this-codebook" class="section level2 unnumbered hasAnchor">
+<h2>What is this codebook?<a href="#what-is-this-codebook" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This codebook provides comprehensive documentation for the <strong>Vietnam Enterprise Census (VEC)</strong> dataset harmonization and cleaning process. The VEC is an annual comprehensive statistical survey conducted by Vietnam’s General Statistics Office (GSO) to collect detailed information about enterprises and cooperatives nationwide. The VEC survey serves multiple critical purposes:</p>
+<p><strong>Economic Policy &amp; Planning:</strong></p>
+<ul>
+<li>Support economic management, evaluation, and forecasting</li>
+<li>Provide data for GDP calculation and provincial GRDP estimation</li>
+<li>Contribute to national economic development policies and plans</li>
+</ul>
+<p><strong>Statistical Products:</strong></p>
+<ul>
+<li>Produce the “White Book of Enterprises 2025” (Sách trắng doanh nghiệp 2025)</li>
+<li>Generate comprehensive business statistics and indicators</li>
+<li>Update sampling frames for future enterprise surveys</li>
+</ul>
+<p><strong>Sector-Specific Analysis:</strong></p>
+<ul>
+<li>Compile agricultural, forestry, and fisheries statistics from enterprise data</li>
+<li>Support sectoral policy development and monitoring</li>
+</ul>
+<p><strong>Data Infrastructure:</strong></p>
+<ul>
+<li>Maintain updated enterprise database for statistical purposes</li>
+<li>Provide reliable data for government agencies, researchers, and international organizations</li>
+</ul>
+<p><strong>Survey Coverage:</strong></p>
+<ul>
+<li><strong>Scope:</strong> All 63 provinces/cities nationwide</li>
+<li><strong>Target Population:</strong> All formal enterprises and cooperatives (excluding household activities, political organizations, and international bodies)</li>
+<li><strong>Survey Types:</strong> Complete enumeration + sample survey for detailed indicators</li>
+<li><strong>Reference Period:</strong> Our codebook covers the harmonization of 22 year of VEC datasets (2000-2021).</li>
+</ul>
+<p>This codebook aims to help researchers at DEPOCEN and elsewhere better understand and use the VEC dataset consistently for research and consultancy purposes, while promoting transparency and reproducibility. We believe that sharing this resource with the broader research community can enhance the quality and reliability of studies utilizing VEC data.</p>
+</div>
+<div id="team-and-contributors" class="section level2 unnumbered hasAnchor">
+<h2>Team and contributors<a href="#team-and-contributors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This codebook was primarily developed by DEPOCEN’s researchers: Huy Le Vu (PI), Tuong-Vy Phan, and Ngoc Anh Nguyen (supervisor). We would like to thank Doan Quang Hung for his insightfull comments and support.</p>
+<p>We are grateful for the comments and support of other DEPOCEN researchers, including Manh-Duc Doan, Quang-thanh Tran, Bui Duc Thinh and our intern team.</p>
+</div>
+<div id="contact-us" class="section level2 unnumbered hasAnchor">
+<h2>Contact us<a href="#contact-us" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Please send us your comments and suggestions, or let us know if this codebook has been useful to you in any way, at:</p>
+<ol style="list-style-type: decimal">
+<li><code>depocen@depocen.org</code></li>
+<li><code>huy.levu@depocen.org</code></li>
+</ol>
+</div>
+<div id="license" class="section level2 unnumbered hasAnchor">
+<h2>License<a href="#license" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>All content in this codebook is licensed under a <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>, which permits non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</p>
+<p>Concerning the datasets, since the data resources are not publicly available, they are considered DEPOCEN’s property. Only DEPOCEN’s staff can directly access the data. For data access outside DEPOCEN, you may read FAQs for more details.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/depocen-cased/vec/edit/main/%s",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": false,
+  "toc": {
+    "collapse": "subsection"
+  },
+  "anchor_sections": false
+});
+});
+</script>
+
+</body>
+
+</html>

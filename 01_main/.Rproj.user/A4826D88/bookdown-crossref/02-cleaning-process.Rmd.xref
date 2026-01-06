@@ -1,0 +1,16 @@
+h1:cleaning Cleaning Process
+h2:cleaning-overview Overview
+h2:get-started Get started
+h3:folder-organization Folder organization
+h3:setting-up-the-environment Setting up the environment
+h2:data-issues Common data issues
+h3:core-variables-needed Core variables needed
+h3:inconsistent-variable-names Inconsistent variable names
+h3:variables-containing-inconsistent-values Variables containing inconsistent values
+h2:cleaning-steps Cleaning steps
+h3:step-1-constructing-codebooks-and-data-dictionaries Step 1: Constructing codebooks and data dictionaries
+h3:step-2-variable-standardization Step 2: Variable standardization
+h3:step-3-data-validation Step 3: Data validation
+h3:step-4-data-transformation Step 4: Data transformation
+h3:step-5-final-checks Step 5: Final checks
+
