@@ -81,7 +81,6 @@
 <h3>
 <span class="header-section-number">2.2.1</span> Folder organization<a class="anchor" aria-label="anchor" href="#folder-organization"><i class="fas fa-link"></i></a>
 </h3>
-<p><em>[Mô tả cấu trúc thư mục cho quy trình cleaning]</em></p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Example folder structure</span></span>
 <span><span class="co"># 00_archived/  - Archived files</span></span>
@@ -95,7 +94,6 @@
 <h3>
 <span class="header-section-number">2.2.2</span> Setting up the environment<a class="anchor" aria-label="anchor" href="#setting-up-the-environment"><i class="fas fa-link"></i></a>
 </h3>
-<p><em>[Hướng dẫn setup môi trường làm việc]</em></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Example setup code</span></span>
 <span><span class="co"># Set working directory</span></span>
@@ -189,8 +187,178 @@
 </h3>
 <p>In many cases, the value labels for categorical variables change over survey waves.</p>
 <p>For example, the coding for type of enterprise or sector of enterprise may differ between survey waves. For example, the coding for “Type of enterprise” is 1-8 before the 2020, but after the 2020, it is 1-7 because there is no option for “4” (state Enterprise) after the 2020. With the sector of each enterprise, there are two main classification base on the VSIC 2008 and VSIC 2018, so we need to harmonize the value labels for the sector of each enterprise across years.</p>
+<div id="inconsistent-values-về-phân-loại-doanh-nghiệp" class="section level4" number="2.3.3.1">
+<h4>
+<span class="header-section-number">2.3.3.1</span> Inconsistent values về phân loại doanh nghiệp<a class="anchor" aria-label="anchor" href="#inconsistent-values-v%E1%BB%81-ph%C3%A2n-lo%E1%BA%A1i-doanh-nghi%E1%BB%87p"><i class="fas fa-link"></i></a>
+</h4>
+<p>The table below show the different between the enterprise type code in each year:</p>
+<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<colgroup>
+<col width="7%">
+<col width="14%">
+<col width="7%">
+<col width="7%">
+<col width="15%">
+<col width="15%">
+<col width="15%">
+<col width="15%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Code</th>
+<th align="left">2000-2001</th>
+<th align="left">2002</th>
+<th align="left">2003</th>
+<th align="left">2004-2011</th>
+<th align="left">2012-2017</th>
+<th align="left">2018-2019</th>
+<th align="left">2020-2021</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">Central State</td>
+<td align="left">Central State</td>
+<td align="left"></td>
+<td align="left">Central State</td>
+<td align="left">Ltd. Co 1 member having 100% central state capital</td>
+<td align="left"></td>
+<td align="left">Ltd. Co 1 member having 100% central state capital</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">Local State</td>
+<td align="left">Local State</td>
+<td align="left"></td>
+<td align="left">Local State</td>
+<td align="left">Ltd. Co 1 member having 100% central local capital</td>
+<td align="left"></td>
+<td align="left">Ltd. Co 1 member having 100% central local capital</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">Collective</td>
+<td align="left">Collective</td>
+<td align="left"></td>
+<td align="left">Central State Ltd. Co</td>
+<td align="left">Joint stock Co. having state capital &gt;50%</td>
+<td align="left"></td>
+<td align="left">Joint stock Co. having state capital &gt;50%</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="left">Private Enterprise</td>
+<td align="left">Private Enterprise</td>
+<td align="left"></td>
+<td align="left">Local State Ltd. Co</td>
+<td align="left">State enterprise</td>
+<td align="left"></td>
+<td align="left">Collective/Unions</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="left">Collective name</td>
+<td align="left">Collective name</td>
+<td align="left"></td>
+<td align="left">Joint stock Co. having state capital &gt;50%</td>
+<td align="left">Collective/Unions</td>
+<td align="left"></td>
+<td align="left">Private Enterprise</td>
+</tr>
+<tr class="even">
+<td align="left">6</td>
+<td align="left">Ltd. Co 1 member</td>
+<td align="left">Central State Ltd. Co</td>
+<td align="left">Collective</td>
+<td align="left">Collective</td>
+<td align="left">Private Enterprise</td>
+<td align="left"></td>
+<td align="left">Collective name</td>
+</tr>
+<tr class="odd">
+<td align="left">7</td>
+<td align="left">Ltd. Co 2 member</td>
+<td align="left">Local State Ltd. Co</td>
+<td align="left">Private Enterprise</td>
+<td align="left">Private Enterprise</td>
+<td align="left">Collective name</td>
+<td align="left">Partnership</td>
+<td align="left">Private Ltd Co. having state capital &lt;= 50%</td>
+</tr>
+<tr class="even">
+<td align="left">8</td>
+<td align="left">Joint stock Co. state capital</td>
+<td align="left">Private Ltd. Co</td>
+<td align="left">Collective name</td>
+<td align="left">Collective name</td>
+<td align="left">Private Ltd Co. having state capital &lt;= 50%</td>
+<td align="left"></td>
+<td align="left">Joint stock Co. not having state capital</td>
+</tr>
+<tr class="odd">
+<td align="left">9</td>
+<td align="left">Joint stock Co. Not state capital</td>
+<td align="left">Joint stock Co. having state capital &gt;50%</td>
+<td align="left">Private Ltd. Co</td>
+<td align="left">Private Ltd. Co</td>
+<td align="left">Joint stock Co. not having state capital</td>
+<td align="left"></td>
+<td align="left">Joint stock Co. having state capital &lt;50%</td>
+</tr>
+<tr class="even">
+<td align="left">10</td>
+<td align="left">100% foreign capital</td>
+<td align="left">Joint stock Co. having state capital &lt;50%</td>
+<td align="left">Joint stock Co. not having state capital</td>
+<td align="left">Joint stock Co. not having state capital</td>
+<td align="left">Joint stock Co. having state capital &lt;50%</td>
+<td align="left"></td>
+<td align="left">100% foreign capital</td>
+</tr>
+<tr class="odd">
+<td align="left">11</td>
+<td align="left">Joint venture - state + foreign</td>
+<td align="left">Joint stock Co. not having state capital</td>
+<td align="left">Joint stock Co. having state capital &lt;50%</td>
+<td align="left">Joint stock Co. having state capital &lt;50%</td>
+<td align="left">100% foreign capital</td>
+<td align="left"></td>
+<td align="left">Joint venture - state + foreign</td>
+</tr>
+<tr class="even">
+<td align="left">12</td>
+<td align="left">Joint venture - others + foreign</td>
+<td align="left">100% foreign capital</td>
+<td align="left">100% foreign capital</td>
+<td align="left">100% foreign capital</td>
+<td align="left">Joint venture - state + foreign</td>
+<td align="left"></td>
+<td align="left">Joint venture - others + foreign</td>
+</tr>
+<tr class="odd">
+<td align="left">13</td>
+<td align="left"></td>
+<td align="left">Joint venture - state + foreign</td>
+<td align="left">Joint venture - state + foreign</td>
+<td align="left">Joint venture - state + foreign</td>
+<td align="left">Joint venture - others + foreign</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">14</td>
+<td align="left"></td>
+<td align="left">Joint venture - others + foreign</td>
+<td align="left">Joint venture - others + foreign</td>
+<td align="left">Joint venture - others + foreign</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table></div>
 <p>For some special issues that should be considered such as: for some years, the currency unit is changed from VND to thousand VND or million VND, or the question is changed like from 2020, it combine 2 question “your firm have export activities” and “your firm have import activities” into 1 question “your firm have export and import activities”, so that, we cannot define what exactly type of international trade activities the enterprise has.</p>
 <p>Our cleaning process will focus mostly on these issues, other issues for data cleaning like missing values, duplicate records, outliers, etc. will be handled but not the main focus.</p>
+</div>
 </div>
 </div>
 <div id="cleaning-steps" class="section level2" number="2.4">
@@ -204,7 +372,7 @@
 <p>Codebooks and data dictionaries are the foundation of the cleaning process. They provide the mapping of variable names, value labels, and other metadata across years. The codebooks and data dictionaries are constructed based on the questionnaires and raw data.</p>
 <p>For each year, we will construct a codebook and data dictionary that contains the variable names, value labels, and other metadata. The codebook and data dictionary are constructed based on the questionnaires and raw data. The most convinient way is to use a package from Stata, called iecodebook that developed by The world bank team. You can find the package <a href="https://github.com/worldbank/iecodebook">here</a>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb3-1"><a href="cleaning.html#cb3-1" tabindex="-1"></a>* ---------------------------------------------------------------------------</span>
-<span id="cb3-2"><a href="cleaning.html#cb3-2" tabindex="-1"></a>**# 0. CREATE CODEBOOK</span>
+<span id="cb3-2"><a href="cleaning.html#cb3-2" tabindex="-1"></a>**# 1. CREATE CODEBOOK</span>
 <span id="cb3-3"><a href="cleaning.html#cb3-3" tabindex="-1"></a>* ---------------------------------------------------------------------------</span>
 <span id="cb3-4"><a href="cleaning.html#cb3-4" tabindex="-1"></a><span class="kw">foreach</span> <span class="fu">y</span> <span class="kw">of</span> <span class="kw">local</span> years {</span>
 <span id="cb3-5"><a href="cleaning.html#cb3-5" tabindex="-1"></a>    * Create <span class="kw">codebook</span> following World Bank standard</span>
@@ -260,20 +428,137 @@
 </tr></tbody>
 </table></div>
 </div>
-<div id="step-2-variable-standardization" class="section level3" number="2.4.2">
+<div id="step-2-make-codebook-do-file" class="section level3" number="2.4.2">
 <h3>
-<span class="header-section-number">2.4.2</span> Step 2: Variable standardization<a class="anchor" aria-label="anchor" href="#step-2-variable-standardization"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.4.2</span> Step 2: Make codebook do file<a class="anchor" aria-label="anchor" href="#step-2-make-codebook-do-file"><i class="fas fa-link"></i></a>
 </h3>
+<p>Once we have the codebook with that format, we can create do-file to clean the data based on the codebook. The structure of the do-file is as follows:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb4-1"><a href="cleaning.html#cb4-1" tabindex="-1"></a>* ---------------------------------------------------------------------------</span>
+<span id="cb4-2"><a href="cleaning.html#cb4-2" tabindex="-1"></a>**# 2. Make panel <span class="kw">do</span> file <span class="kw">for</span> <span class="ot">all</span> years</span>
+<span id="cb4-3"><a href="cleaning.html#cb4-3" tabindex="-1"></a>* ---------------------------------------------------------------------------</span>
+<span id="cb4-4"><a href="cleaning.html#cb4-4" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="cleaning.html#cb4-5" tabindex="-1"></a>* You can dowload the <span class="kw">codebook</span> from the <span class="kw">link</span> above with CSV ơr Excel Format</span>
+<span id="cb4-6"><a href="cleaning.html#cb4-6" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="cleaning.html#cb4-7" tabindex="-1"></a>import delimited <span class="st">"VES_Codebook.csv"</span>, encoding(UTF-8) <span class="kw">clear</span>      </span>
+<span id="cb4-8"><a href="cleaning.html#cb4-8" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="cleaning.html#cb4-9" tabindex="-1"></a><span class="co">/* if your Google Sheets file is public, you can use the following code:</span></span>
+<span id="cb4-10"><a href="cleaning.html#cb4-10" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="cleaning.html#cb4-11" tabindex="-1"></a><span class="co">    import excel "Your Public Link of your Google Sheets file #format=xlsx", ///</span></span>
+<span id="cb4-12"><a href="cleaning.html#cb4-12" tabindex="-1"></a><span class="co">    clear firstrow  </span></span>
+<span id="cb4-13"><a href="cleaning.html#cb4-13" tabindex="-1"></a><span class="co">*/</span></span>
+<span id="cb4-14"><a href="cleaning.html#cb4-14" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="cleaning.html#cb4-15" tabindex="-1"></a><span class="kw">local</span> <span class="kw">N</span> = _N</span>
+<span id="cb4-16"><a href="cleaning.html#cb4-16" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="cleaning.html#cb4-17" tabindex="-1"></a>forval i = 2000/2021 {</span>
+<span id="cb4-18"><a href="cleaning.html#cb4-18" tabindex="-1"></a>    file open myfile <span class="kw">using</span> <span class="st">`"</span><span class="ot">$temp</span>/label<span class="ot">`i'</span>.do<span class="st">"', write text replace</span></span>
+<span id="cb4-19"><a href="cleaning.html#cb4-19" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb4-20"><a href="cleaning.html#cb4-20" tabindex="-1"></a><span class="st">    local renamed_vars ""</span></span>
+<span id="cb4-21"><a href="cleaning.html#cb4-21" tabindex="-1"></a><span class="st">    forval iii = 1/`N' {</span></span>
+<span id="cb4-22"><a href="cleaning.html#cb4-22" tabindex="-1"></a><span class="st">        local vvvcode = code[`iii']</span></span>
+<span id="cb4-23"><a href="cleaning.html#cb4-23" tabindex="-1"></a><span class="st">        local vvv_i = code_`i'[`iii']</span></span>
+<span id="cb4-24"><a href="cleaning.html#cb4-24" tabindex="-1"></a><span class="st">        </span></span>
+<span id="cb4-25"><a href="cleaning.html#cb4-25" tabindex="-1"></a><span class="st">        if `"</span><span class="ot">`vvv_i'</span><span class="st">"' != "" {</span></span>
+<span id="cb4-26"><a href="cleaning.html#cb4-26" tabindex="-1"></a><span class="st">            local result = `"</span>ren <span class="ot">`vvv_i'</span> <span class="ot">`vvvcode'</span><span class="st">"'</span></span>
+<span id="cb4-27"><a href="cleaning.html#cb4-27" tabindex="-1"></a><span class="st">            local renamed_vars "</span><span class="ot">`renamed_vars'</span> <span class="ot">`vvvcode'</span><span class="st">"</span></span>
+<span id="cb4-28"><a href="cleaning.html#cb4-28" tabindex="-1"></a><span class="st">            * Ghi dòng kết quả vào tệp do-file</span></span>
+<span id="cb4-29"><a href="cleaning.html#cb4-29" tabindex="-1"></a><span class="st">            file write myfile `"</span><span class="ot">`result'</span><span class="st">"' _n</span></span>
+<span id="cb4-30"><a href="cleaning.html#cb4-30" tabindex="-1"></a><span class="st">        }</span></span>
+<span id="cb4-31"><a href="cleaning.html#cb4-31" tabindex="-1"></a><span class="st">    }</span></span>
+<span id="cb4-32"><a href="cleaning.html#cb4-32" tabindex="-1"></a><span class="st">    file write myfile `"</span>keep<span class="ot">`renamed_vars'</span><span class="st">"' _n</span></span>
+<span id="cb4-33"><a href="cleaning.html#cb4-33" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="cleaning.html#cb4-34" tabindex="-1"></a><span class="st">    file close myfile</span></span>
+<span id="cb4-35"><a href="cleaning.html#cb4-35" tabindex="-1"></a><span class="st">}</span></span></code></pre></div>
 </div>
-<div id="step-3-data-validation" class="section level3" number="2.4.3">
+<div id="step-3-construct-harmonization-data" class="section level3" number="2.4.3">
 <h3>
-<span class="header-section-number">2.4.3</span> Step 3: Data validation<a class="anchor" aria-label="anchor" href="#step-3-data-validation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.4.3</span> Step 3: Construct harmonization data<a class="anchor" aria-label="anchor" href="#step-3-construct-harmonization-data"><i class="fas fa-link"></i></a>
 </h3>
+<p>We need to construct harmonization data to ensure the consistency and convenience for cleaning and analysis. After step 2, we have the code that need to be run for each year, so we can use a loop to run the code for each year and construct a harmonization version data:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb5-1"><a href="cleaning.html#cb5-1" tabindex="-1"></a>* ---------------------------------------------------------------------------</span>
+<span id="cb5-2"><a href="cleaning.html#cb5-2" tabindex="-1"></a>**# 3. Make panel <span class="kw">data</span></span>
+<span id="cb5-3"><a href="cleaning.html#cb5-3" tabindex="-1"></a>* ---------------------------------------------------------------------------</span>
+<span id="cb5-4"><a href="cleaning.html#cb5-4" tabindex="-1"></a><span class="kw">tempfile</span> combined_data</span>
+<span id="cb5-5"><a href="cleaning.html#cb5-5" tabindex="-1"></a><span class="kw">save</span> <span class="ot">`combined_data'</span>, emptyok</span>
+<span id="cb5-6"><a href="cleaning.html#cb5-6" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="cleaning.html#cb5-7" tabindex="-1"></a>forval i = 2000/2021 {</span>
+<span id="cb5-8"><a href="cleaning.html#cb5-8" tabindex="-1"></a>    </span>
+<span id="cb5-9"><a href="cleaning.html#cb5-9" tabindex="-1"></a>    * Use <span class="kw">data</span> <span class="kw">of</span> information <span class="kw">of</span> each <span class="fu">year</span></span>
+<span id="cb5-10"><a href="cleaning.html#cb5-10" tabindex="-1"></a>    <span class="kw">use</span> <span class="st">"$raw/dn_`i'.dta"</span>, <span class="kw">clear</span></span>
+<span id="cb5-11"><a href="cleaning.html#cb5-11" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="cleaning.html#cb5-12" tabindex="-1"></a>    * Run the .<span class="kw">do</span> file <span class="kw">for</span> each <span class="fu">year</span></span>
+<span id="cb5-13"><a href="cleaning.html#cb5-13" tabindex="-1"></a>    <span class="kw">do</span> <span class="st">`"</span><span class="ot">$temp</span>/label<span class="ot">`i'</span>.do<span class="st">"'</span></span>
+<span id="cb5-14"><a href="cleaning.html#cb5-14" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb5-15"><a href="cleaning.html#cb5-15" tabindex="-1"></a><span class="st">    gen year = `i'</span></span>
+<span id="cb5-16"><a href="cleaning.html#cb5-16" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="cleaning.html#cb5-17" tabindex="-1"></a><span class="st">    * Append for panel data</span></span>
+<span id="cb5-18"><a href="cleaning.html#cb5-18" tabindex="-1"></a><span class="st">    append using `combined_data'</span></span>
+<span id="cb5-19"><a href="cleaning.html#cb5-19" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="cleaning.html#cb5-20" tabindex="-1"></a><span class="st">    * save append data</span></span>
+<span id="cb5-21"><a href="cleaning.html#cb5-21" tabindex="-1"></a><span class="st">    save `combined_data', replace</span></span>
+<span id="cb5-22"><a href="cleaning.html#cb5-22" tabindex="-1"></a><span class="st">}</span></span></code></pre></div>
 </div>
 <div id="step-4-data-transformation" class="section level3" number="2.4.4">
 <h3>
 <span class="header-section-number">2.4.4</span> Step 4: Data transformation<a class="anchor" aria-label="anchor" href="#step-4-data-transformation"><i class="fas fa-link"></i></a>
 </h3>
+<p>After step 3, we have the harmonization version data, we can use this data to clean the data. The cleaning process is based on the codebook and the harmonization version data. The cleaning process is as follows:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb6-1"><a href="cleaning.html#cb6-1" tabindex="-1"></a>* ---------------------------------------------------------------------------</span>
+<span id="cb6-2"><a href="cleaning.html#cb6-2" tabindex="-1"></a>**# 4. Data cleaning</span>
+<span id="cb6-3"><a href="cleaning.html#cb6-3" tabindex="-1"></a>* ---------------------------------------------------------------------------</span>
+<span id="cb6-4"><a href="cleaning.html#cb6-4" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="cleaning.html#cb6-5" tabindex="-1"></a>* Standard rule <span class="kw">for</span> cleaning <span class="kw">variable</span> with begining <span class="kw">var</span> and ending <span class="kw">var</span></span>
+<span id="cb6-6"><a href="cleaning.html#cb6-6" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="cleaning.html#cb6-7" tabindex="-1"></a>    <span class="kw">gen</span> laodong = <span class="fu">round</span>((c1 + c2)/2) <span class="kw">if</span> c1 != . &amp; c2 != .       <span class="co">// c1 and c2 are the number of employees at the beginning and ending of the year</span></span>
+<span id="cb6-8"><a href="cleaning.html#cb6-8" tabindex="-1"></a>        <span class="kw">replace</span> laodong = c1 <span class="kw">if</span> c1 != . &amp; c2 == .</span>
+<span id="cb6-9"><a href="cleaning.html#cb6-9" tabindex="-1"></a>        <span class="kw">replace</span> laodong = c2 <span class="kw">if</span> c1 == . &amp; c2 != .</span>
+<span id="cb6-10"><a href="cleaning.html#cb6-10" tabindex="-1"></a>            <span class="kw">drop</span> <span class="kw">if</span> laodong == .</span>
+<span id="cb6-11"><a href="cleaning.html#cb6-11" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="cleaning.html#cb6-12" tabindex="-1"></a>* Create <span class="ot">value</span>-added variables:</span>
+<span id="cb6-13"><a href="cleaning.html#cb6-13" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="cleaning.html#cb6-14" tabindex="-1"></a>    <span class="kw">gen</span> va = e4 + luong     <span class="co">// e4 is the total profit before tax and luong is the total compensation of employees</span></span>
+<span id="cb6-15"><a href="cleaning.html#cb6-15" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="cleaning.html#cb6-16" tabindex="-1"></a>* logic check</span>
+<span id="cb6-17"><a href="cleaning.html#cb6-17" tabindex="-1"></a>    </span>
+<span id="cb6-18"><a href="cleaning.html#cb6-18" tabindex="-1"></a>    <span class="kw">drop</span> <span class="kw">if</span> tongdoanhthu &lt; 0 | luong &lt; 0 | tongtaisan &lt; 0 | tscd &lt; 0 | thuethunhap &lt; 0</span>
+<span id="cb6-19"><a href="cleaning.html#cb6-19" tabindex="-1"></a>    <span class="kw">drop</span> <span class="kw">if</span> tinh == 97</span>
+<span id="cb6-20"><a href="cleaning.html#cb6-20" tabindex="-1"></a>    <span class="kw">drop</span> <span class="kw">if</span> luong == 0 </span>
+<span id="cb6-21"><a href="cleaning.html#cb6-21" tabindex="-1"></a>    <span class="kw">drop</span> <span class="kw">if</span> isic3 == 4</span>
+<span id="cb6-22"><a href="cleaning.html#cb6-22" tabindex="-1"></a>    <span class="kw">drop</span> <span class="kw">if</span> lhdn == 0</span>
+<span id="cb6-23"><a href="cleaning.html#cb6-23" tabindex="-1"></a>    <span class="kw">drop</span> <span class="kw">if</span> isic3 == 0</span>
+<span id="cb6-24"><a href="cleaning.html#cb6-24" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="cleaning.html#cb6-25" tabindex="-1"></a>* divide <span class="kw">by</span> cpi to <span class="fu">get</span> base <span class="ot">value</span> (2010)</span>
+<span id="cb6-26"><a href="cleaning.html#cb6-26" tabindex="-1"></a>        <span class="kw">gen</span>      CPI = 148.44 <span class="kw">if</span> <span class="fu">year</span> == 2016</span>
+<span id="cb6-27"><a href="cleaning.html#cb6-27" tabindex="-1"></a>        <span class="kw">replace</span>  CPI = 153.68 <span class="kw">if</span> <span class="fu">year</span> == 2017</span>
+<span id="cb6-28"><a href="cleaning.html#cb6-28" tabindex="-1"></a>        <span class="kw">replace</span>  CPI = 159.11 <span class="kw">if</span> <span class="fu">year</span> == 2018</span>
+<span id="cb6-29"><a href="cleaning.html#cb6-29" tabindex="-1"></a>        <span class="kw">replace</span>  CPI = 153.56 <span class="kw">if</span> <span class="fu">year</span> == 2019</span>
+<span id="cb6-30"><a href="cleaning.html#cb6-30" tabindex="-1"></a>        <span class="kw">replace</span>  CPI = 168.83 <span class="kw">if</span> <span class="fu">year</span> == 2020</span>
+<span id="cb6-31"><a href="cleaning.html#cb6-31" tabindex="-1"></a>        <span class="kw">replace</span>  CPI = 171.93 <span class="kw">if</span> <span class="fu">year</span> == 2021</span>
+<span id="cb6-32"><a href="cleaning.html#cb6-32" tabindex="-1"></a>        <span class="kw">replace</span>  CPI = 177.3  <span class="kw">if</span> <span class="fu">year</span> == 2022</span>
+<span id="cb6-33"><a href="cleaning.html#cb6-33" tabindex="-1"></a>        </span>
+<span id="cb6-34"><a href="cleaning.html#cb6-34" tabindex="-1"></a>* <span class="fu">get</span> same unit between <span class="fu">year</span></span>
+<span id="cb6-35"><a href="cleaning.html#cb6-35" tabindex="-1"></a></span>
+<span id="cb6-36"><a href="cleaning.html#cb6-36" tabindex="-1"></a>* For example, the <span class="kw">variable</span> <span class="kw">for</span> <span class="kw">statistics</span> is tongdoanhthu, tongtaisan, tscd, thuethunhap, etc. have million VND unit <span class="kw">in</span> 2021 and 2022, so we need to divide <span class="kw">by</span> 1000000 to <span class="fu">get</span> the same unit <span class="kw">in</span> 2010.</span>
+<span id="cb6-37"><a href="cleaning.html#cb6-37" tabindex="-1"></a>    </span>
+<span id="cb6-38"><a href="cleaning.html#cb6-38" tabindex="-1"></a>    <span class="kw">foreach</span> <span class="kw">var</span> <span class="kw">in</span> <span class="ot">$stat</span> {</span>
+<span id="cb6-39"><a href="cleaning.html#cb6-39" tabindex="-1"></a>        <span class="kw">replace</span> <span class="ot">`var'</span>= <span class="ot">`var'</span>/1000000  <span class="kw">if</span> <span class="fu">year</span> == 2021 </span>
+<span id="cb6-40"><a href="cleaning.html#cb6-40" tabindex="-1"></a>        <span class="kw">replace</span> <span class="ot">`var'</span>= <span class="ot">`var'</span>/1000000  <span class="kw">if</span> <span class="fu">year</span> == 2022 </span>
+<span id="cb6-41"><a href="cleaning.html#cb6-41" tabindex="-1"></a>    }</span>
+<span id="cb6-42"><a href="cleaning.html#cb6-42" tabindex="-1"></a></span>
+<span id="cb6-43"><a href="cleaning.html#cb6-43" tabindex="-1"></a></span>
+<span id="cb6-44"><a href="cleaning.html#cb6-44" tabindex="-1"></a>* Deflated to one <span class="fu">year</span> base (2010)</span>
+<span id="cb6-45"><a href="cleaning.html#cb6-45" tabindex="-1"></a>    </span>
+<span id="cb6-46"><a href="cleaning.html#cb6-46" tabindex="-1"></a>    <span class="kw">foreach</span> <span class="kw">var</span> <span class="kw">in</span> <span class="ot">$stat</span> {</span>
+<span id="cb6-47"><a href="cleaning.html#cb6-47" tabindex="-1"></a>            <span class="kw">replace</span> <span class="ot">`var'</span>= <span class="ot">`var'</span>*100/CPI </span>
+<span id="cb6-48"><a href="cleaning.html#cb6-48" tabindex="-1"></a>    }</span>
+<span id="cb6-49"><a href="cleaning.html#cb6-49" tabindex="-1"></a></span>
+<span id="cb6-50"><a href="cleaning.html#cb6-50" tabindex="-1"></a>* <span class="fu">get</span> <span class="fu">log</span> <span class="ot">value</span> <span class="kw">of</span> intersted <span class="kw">var</span></span>
+<span id="cb6-51"><a href="cleaning.html#cb6-51" tabindex="-1"></a></span>
+<span id="cb6-52"><a href="cleaning.html#cb6-52" tabindex="-1"></a>    <span class="kw">foreach</span> <span class="kw">var</span> <span class="kw">in</span> <span class="ot">$stat</span> {</span>
+<span id="cb6-53"><a href="cleaning.html#cb6-53" tabindex="-1"></a>        </span>
+<span id="cb6-54"><a href="cleaning.html#cb6-54" tabindex="-1"></a>        <span class="kw">gen</span>     ln<span class="ot">`var'</span>= <span class="fu">ln</span>(<span class="ot">`var'</span>)      <span class="kw">if</span> <span class="ot">`var'</span> &gt; 0 &amp; <span class="ot">`var'</span> &lt; .</span>
+<span id="cb6-55"><a href="cleaning.html#cb6-55" tabindex="-1"></a>        <span class="kw">replace</span> ln<span class="ot">`var'</span>= <span class="fu">ln</span>(<span class="ot">`var'</span> + 1)  <span class="kw">if</span> ln<span class="ot">`var'</span> == . </span>
+<span id="cb6-56"><a href="cleaning.html#cb6-56" tabindex="-1"></a>        </span>
+<span id="cb6-57"><a href="cleaning.html#cb6-57" tabindex="-1"></a>    } </span></code></pre></div>
 </div>
 <div id="step-5-final-checks" class="section level3" number="2.4.5">
 <h3>
@@ -313,8 +598,8 @@
 <li>
 <a class="nav-link" href="#cleaning-steps"><span class="header-section-number">2.4</span> Cleaning steps</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#step-1-constructing-codebooks-and-data-dictionaries"><span class="header-section-number">2.4.1</span> Step 1: Constructing codebooks and data dictionaries</a></li>
-<li><a class="nav-link" href="#step-2-variable-standardization"><span class="header-section-number">2.4.2</span> Step 2: Variable standardization</a></li>
-<li><a class="nav-link" href="#step-3-data-validation"><span class="header-section-number">2.4.3</span> Step 3: Data validation</a></li>
+<li><a class="nav-link" href="#step-2-make-codebook-do-file"><span class="header-section-number">2.4.2</span> Step 2: Make codebook do file</a></li>
+<li><a class="nav-link" href="#step-3-construct-harmonization-data"><span class="header-section-number">2.4.3</span> Step 3: Construct harmonization data</a></li>
 <li><a class="nav-link" href="#step-4-data-transformation"><span class="header-section-number">2.4.4</span> Step 4: Data transformation</a></li>
 <li><a class="nav-link" href="#step-5-final-checks"><span class="header-section-number">2.4.5</span> Step 5: Final checks</a></li>
 </ul>
@@ -336,7 +621,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Vietnam Enterprise Census Codebook</strong>" was written by DEPOCEN research team. It was last built on 2026-01-06.</p>
+    <p>"<strong>Vietnam Enterprise Census Codebook</strong>" was written by DEPOCEN research team. It was last built on 2026-01-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
