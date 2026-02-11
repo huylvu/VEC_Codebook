@@ -1,256 +1,435 @@
-# Cleaning Process {#cleaning}
-
+# How to use this codebook? {#cleaning}
 ## Overview {#cleaning-overview}
 
-This cleaning workflow is built for a dataset that spans 2000–2021, so it must handle many shifts over time: industry codes (VSIC 2008 → 2018), legal definitions of enterprise types, inconsistent variable names and option sets across years, unit changes (VND, thousand VND, million VND), and variables that appear only in certain years. The workflow therefore focuses on standardizing and harmonizing these differences before downstream cleaning and analysis.
+You likely have a task related to the Vietnam Enterprise Survey (VES) dataset, or you simply want to explore the situation of enterprises in Vietnam, but you don't know where to start. We often begin by downloading the data, struggling with a mess of messy variables, then fumbling to find questionnaires, determining which question corresponds to which variable in the data, and noting potential issues. This typical process often consumes a lot of time and can even lead to errors due to the massive amount of information.
 
-## Get started {#get-started}
+Therefore, this codebook focuses on two main issues:
 
-### Folder organization
+1) Providing you with an enterprise dataset cleaned according to DEPOCEN's process, so you can immediately start analyzing and exploring the data without struggling with raw data issues.
+2) Explaining the processing procedure so you can verify the process, raise questions about issues you encounter, and contribute to improving the process further.
 
-```r
+Regardless of your purpose for coming here, your usage and contributions are crucial for us to improve even more.
+
+
+## If you just want to use the cleaned data {#use-cleaned-data}
+
+If you just want to use the cleaned data, you can access this link: [**here**](https://drive.google.com/open?id=1FwfSDzEThzsyMPOXh1CnJOyMp0tXKHg1&usp=drive_fs). Chose the file that you want to download, and download it to your local machine. Please, only dowload the file that you need, do not modify anything in this folder.
+
+The final data cover from 2000 to 2021, with the following variables:
+
+- Tax code
+- Secondary tax code
+- Year (survey/reference year)
+- Survey province code
+- Survey district code
+- Survey commune/ward code
+- Year of starting production and business
+- Enterprise operating status
+- Type of enterprise
+- VSIC 2018 4‑digit industry code
+- VSIC 2007 4‑digit industry code
+- VSIC 1993 4‑digit industry code
+- Number of employees
+- Number of female employees
+- Total expenses related to employees
+- Total assets
+- Fixed assets
+- Historical cost
+- Accumulated depreciation
+- Construction in progress
+- Total liabilities
+- Total revenue
+- Revenue from sale of goods and services
+- Net revenue from sale of goods and services
+- Cost of goods sold
+- Reductions in revenue
+- Financial income
+- Other income
+- Profit before tax
+- Corporate income tax expense
+- Import activity (yes/no)
+- Export activity (yes/no)
+- Has import or export activities
+
+If you want to check what is the raw name of each variables in the raw data, you can access the data dictionary [**here**](https://docs.google.com/spreadsheets/d/1z1FoluAF2u6vSx7LM_uHxjLDjmr7d3JHDB1zvJiu-cs/edit?gid=52042540#gid=52042540).
+
+## If you want to know how we clean the data {#clean-data}
+
+If you want to know how we clean the data, you can dowload the raw data from the link here [**here**](https://drive.google.com/drive/folders/1EDgL9KqYd5ZnVLpDItbqUxT8wdMyy5Lq?usp=drive_link), and follow the steps below to clean the data.
+
+The raw data is organized in the following folder structure: The data folder for each year is named as "VES_year". In each folder, there are plenty of dta data file, you should only focus on the file that is named as "dn_year.dta". That is the data that you need to clean. For other files, you can ignore them, we will update on how to use them in the future.
+
+The folder that you dowload is "01_raw", It also include the questionaires for each year that we use to clean the data. If available, read it carefully to understand the context of the data.
+
+Now, you create a new folder for your project, and put the raw data and questionaires in it.
+
+```
 # Example folder structure
-# 00_archived/  - Archived files
-# 01_dofiles/   - Cleaning code
-# 02_raw/       - Raw datasets
-# 03_temp/      - Temporary files
-# 04_clean/     - Cleaned datasets
-# 05_codebook/  - Documentation
+# 01_raw/       - Raw datasets and questionaires
+# 02_temp/      - Temporary files
+# 03_clean/     - Cleaned datasets
+# 04_output/    - Output files
 ```
 
-### Setting up the environment
+Then, you need to dowload this stata script [**here**](https://drive.google.com/file/d/1vlgxfHo7MrRWSOlW0lmsaXpjT3R-3FMH/view?usp=drive_link), and put it in your project folder.
 
-```r
-# Example setup code
-# Set working directory
-# Load required packages
-# Define global variables
+```
+# Example folder structure
+# 01_raw/       - Raw datasets and questionaires
+# 02_temp/      - Temporary files
+# 03_clean/     - Cleaned datasets
+# 04_output/    - Output files
+# 00_setup.do   - Setup and clean script
 ```
 
-## Common data issues {#data-issues}
-
-One of the most structured and usable ways to handle the issues above is to build detailed codebooks and data dictionaries for each year, then merge them into a multi-year codebook that harmonizes the data for cleaning and analysis. The dataset also includes multiple questionnaires, so processing everything is time-intensive.
-
-The cleaning workflow for Questionnaire 01 (general enterprise information) focuses on:
-
-- Defining and selecting the core variables needed for general enterprise information.
-- Compiling, extracting, and creating codebooks/data dictionaries by year and multi-year, based on questionnaires and raw data, ensuring coverage for the selected variables.
-- Writing code to harmonize the data: standardize variable names, labels, and values across years.
-- Addressing remaining issues such as crosswalks for enterprise addresses, enterprise types, and industry codes (VSIC 2008/2018).
-
-### Core variables needed
-
-Variables are organised into blocks that mirror the content structure of Questionnaire 01:
-
-| Content block (Questionnaire 01) | Typical components |
-|:---------------------------------|:-------------------|
-| **Identification & location** | Tax identification number<br>Enterprise code<br>Province/District/Commune<br>Detailed address<br>Ownership type<br>VSIC industry |
-| **General information** | Year of establishment<br>Operating status<br>Location inside/outside industrial or economic zones<br>Type of zone<br>Main and secondary economic activities |
-| **Employment & labour costs** | Employment at the beginning and end of the year<br>Female employees<br>Total wage bill, social insurance contributions, and other labour-related expenses |
-| **Production and business results** | Turnover/net revenue<br>Cost of goods sold<br>Profit before tax<br>Corporate income tax |
-| **Assets and liabilities** | Total assets at the beginning and end of the year<br>Current and non-current assets<br>Fixed assets (at historical cost) and depreciation<br>Work-in-progress construction<br>Total liabilities<br>Owners’ equity |
-| **Taxes and budget payments** | Other payments to the State budget, as specified in the questionnaire |
-| **External trade and technology** | Export and import status<br>Relevant international trade activities and technology-related information |
-
-### Inconsistent variable names
-
-Variable names for each year will have a different name, but the content is the same. So we need to harmonize the variable names across years to ensure consistency and convenience for cleaning and analysis. For example, the variable name for "Province location of establishment" is tinh, matinh_d, MaTinh_Dieutra, matinh_dieutra for 2018, 2019, 2020, 2021 - 4 different variable names for the same content.
-
-| Variable Name | 2018 | 2019 | 2020 | 2021 |
-|:--------------|:------|:-----|:-------|:------------|
-| ma tinh | tinh | matinh_d | MaTinh_Dieutra | matinh_dieutra |
-
-### Variables containing inconsistent values
-
-In many cases, the value labels for categorical variables change over survey waves. 
-
-For example, the coding for type of enterprise or sector of enterprise may differ between survey waves. For example, the coding for "Type of enterprise" is 1-8 before the 2020, but after the 2020, it is 1-7 because there is no option for "4" (state Enterprise) after the 2020. With the sector of each enterprise, there are two main classification base on the VSIC 2008 and VSIC 2018, so we need to harmonize the value labels for the sector of each enterprise across years.
-
-#### Inconsistent values về phân loại doanh nghiệp
-
-The table below show the different between the enterprise type code in each year:
-
-| Code | 2000-2001 | 2002 | 2003 | 2004-2011 | 2012-2017 | 2018-2019 | 2020-2021 |
-|:-----|:----------|:-----|:-----|:-----------|:-----------|:-----------|:-----------|
-| 1 | Central State | Central State | | Central State | Ltd. Co 1 member having 100% central state capital | | Ltd. Co 1 member having 100% central state capital |
-| 2 | Local State | Local State | | Local State | Ltd. Co 1 member having 100% central local capital | | Ltd. Co 1 member having 100% central local capital |
-| 3 | Collective | Collective | | Central State Ltd. Co | Joint stock Co. having state capital >50% | | Joint stock Co. having state capital >50% |
-| 4 | Private Enterprise | Private Enterprise | | Local State Ltd. Co | State enterprise | | Collective/Unions |
-| 5 | Collective name | Collective name | | Joint stock Co. having state capital >50% | Collective/Unions | | Private Enterprise |
-| 6 | Ltd. Co 1 member | Central State Ltd. Co | Collective | Collective | Private Enterprise | | Collective name |
-| 7 | Ltd. Co 2 member | Local State Ltd. Co | Private Enterprise | Private Enterprise | Collective name | Partnership | Private Ltd Co. having state capital <= 50% |
-| 8 | Joint stock Co. state capital | Private Ltd. Co | Collective name | Collective name | Private Ltd Co. having state capital <= 50% | | Joint stock Co. not having state capital |
-| 9 | Joint stock Co. Not state capital | Joint stock Co. having state capital >50% | Private Ltd. Co | Private Ltd. Co | Joint stock Co. not having state capital | | Joint stock Co. having state capital <50% |
-| 10 | 100% foreign capital | Joint stock Co. having state capital <50% | Joint stock Co. not having state capital | Joint stock Co. not having state capital | Joint stock Co. having state capital <50% | | 100% foreign capital |
-| 11 | Joint venture - state + foreign | Joint stock Co. not having state capital | Joint stock Co. having state capital <50% | Joint stock Co. having state capital <50% | 100% foreign capital | | Joint venture - state + foreign |
-| 12 | Joint venture - others + foreign | 100% foreign capital | 100% foreign capital | 100% foreign capital | Joint venture - state + foreign | | Joint venture - others + foreign |
-| 13 | | Joint venture - state + foreign | Joint venture - state + foreign | Joint venture - state + foreign | Joint venture - others + foreign | | |
-| 14 | | Joint venture - others + foreign | Joint venture - others + foreign | Joint venture - others + foreign | | | |
-
-For some special issues that should be considered such as: for some years, the currency unit is changed from VND to thousand VND or million VND, or the question is changed like from 2020, it combine 2 question "your firm have export activities" and "your firm have import activities" into 1 question "your firm have export and import activities", so that, we cannot define what exactly type of international trade activities the enterprise has.
-
-Our cleaning process will focus mostly on these issues, other issues for data cleaning like missing values, duplicate records, outliers, etc. will be handled but not the main focus.
-
-## Cleaning steps {#cleaning-steps}
-
-### Step 1: Constructing codebooks and data dictionaries
-
-Codebooks and data dictionaries are the foundation of the cleaning process. They provide the mapping of variable names, value labels, and other metadata across years. The codebooks and data dictionaries are constructed based on the questionnaires and raw data.
-
-For each year, we will construct a codebook and data dictionary that contains the variable names, value labels, and other metadata. The codebook and data dictionary are constructed based on the questionnaires and raw data. The most convinient way is to use a package from Stata, called iecodebook that developed by The world bank team. You can find the package [here](https://github.com/worldbank/iecodebook).
+Run the setup script to setup the folder and clean the data, before running the script, you need to set up the directory of the project folder
 
 ```stata
-* ---------------------------------------------------------------------------
-**# 1. CREATE CODEBOOK
-* ---------------------------------------------------------------------------
-foreach y of local years {
-	* Create codebook following World Bank standard
-	cap iecodebook template using "$codebook/codebook_`y'.xlsx", replace
-}
+// -------------------------------------------------------------------------- //
+**# Set Working Directory
+// -------------------------------------------------------------------------- //
+
+* User must uncomment the following line ("global ...") and set the filepath equal to the folder containing this run.do file 
+gl MyProject ".../your_project_folder/"
+	gl data "$MyProject/data"
+		gl raw 		"$MyProject/01_raw"
+		gl tem 		"$MyProject/02_temp"
+		gl clean 	"$MyProject/03_clean"	
+		gl out	 	"$MyProject/04_output"
+
 ```
-However, the iecodebook package is not very flexible and it is not easy to use for our dataset because of the messsy of the raw dataset, it is not easy to identify the variable names and value labels for each year. So we decide use our own master codebook and develop a custom package for handling that kind of codebook.
 
-Our codebook is a Google Sheets file that contains the variable names, value labels, and other metadata across years. You can find the codebook [here](https://docs.google.com/spreadsheets/d/1z1FoluAF2u6vSx7LM_uHxjLDjmr7d3JHDB1zvJiu-cs/edit?gid=0#gid=0). The codebook is updated regularly to ensure the latest information. The structure of the codebook is as follows:
+I will explain the script below:
 
-| Citeria | Code | Code_name | label | code_2016 | code_2017 | code_2018 | code_2019 | code_2020 | code_2021 | code_2022 | Note |
-|:--------|:-----|:----------|:------|:----------|:----------|:----------|:----------|:----------|:----------|:----------|:----------|:-----|
-| Địa chỉ tỉnh | a1 | tinh | Province Address | tinh | tinh | tinh | matinh_d | MaTinh_Dieutra | matinh_dieutra | MaTinh_Dieutra | |
+A common issue when cleaning survey data spanning multiple years, especially with VEC, is the inconsistency in variable names and content across years. To address this, we synchronize variable names and content across years using an Excel file that maps variables from different years to a single standardized format.
 
-### Step 2: Make codebook do file
+You can copy the Excel link in the code below to download this file. The structure of the Excel file is shown in the image below:
 
-Once we have the codebook with that format, we can create do-file to clean the data based on the codebook. The structure of the do-file is as follows:
+![](images/codebook_structure.png){width=100%}
 
 ```stata
-* ---------------------------------------------------------------------------
-**# 2. Make panel do file for all years
-* ---------------------------------------------------------------------------
+// -------------------------------------------------------------------------- //
+**# 0. Make the dofile for each year
+// -------------------------------------------------------------------------- //
 
-* You can dowload the codebook from the link above with CSV ơr Excel Format
-
-import delimited "VES_Codebook.csv", encoding(UTF-8) clear      
-
-/* if your Google Sheets file is public, you can use the following code:
-
-	import excel "Your Public Link of your Google Sheets file #format=xlsx", ///
-	clear firstrow	
-*/
-
-local N = _N
-
-forval i = 2000/2021 {
-    file open myfile using `"$temp/label`i'.do"', write text replace
+	import excel "https://docs.google.com/spreadsheets/d/1z1FoluAF2u6vSx7LM_uHxjLDjmr7d3JHDB1zvJiu-cs/export?format=xlsx", ///
+		clear firstrow
 	
-	local renamed_vars ""
-    forval iii = 1/`N' {
-        local vvvcode = code[`iii']
-        local vvv_i = code_`i'[`iii']
-        
-        if `"`vvv_i'"' != "" {
-            local result = `"ren `vvv_i' `vvvcode'"'
-			local renamed_vars "`renamed_vars' `vvvcode'"
-            * Ghi dòng kết quả vào tệp do-file
-            file write myfile `"`result'"' _n
-        }
-    }
-	file write myfile `"keep`renamed_vars'"' _n
-
-    file close myfile
-}
-```
-
-### Step 3: Construct harmonization data 
-
-We need to construct harmonization data to ensure the consistency and convenience for cleaning and analysis. After step 2, we have the code that need to be run for each year, so we can use a loop to run the code for each year and construct a harmonization version data:
-
-```stata
-* ---------------------------------------------------------------------------
-**# 3. Make panel data
-* ---------------------------------------------------------------------------
-tempfile combined_data
-save `combined_data', emptyok
-
-forval i = 2000/2021 {
-    
-	* Use data of information of each year
-    use "$raw/dn_`i'.dta", clear
-
-    * Run the .do file for each year
-    do `"$temp/label`i'.do"'
-	
-	gen year = `i'
-
-    * Append for panel data
-    append using `combined_data'
-
-    * save append data
-    save `combined_data', replace
-}
-```
-
-### Step 4: Data transformation
-
-After step 3, we have the harmonization version data, we can use this data to clean the data. The cleaning process is based on the codebook and the harmonization version data. The cleaning process is as follows:
-
-```stata
-* ---------------------------------------------------------------------------
-**# 4. Data cleaning
-* ---------------------------------------------------------------------------
-
-* Standard rule for cleaning variable with begining var and ending var
-
-	gen laodong = round((c1 + c2)/2) if c1 != . & c2 != .		// c1 and c2 are the number of employees at the beginning and ending of the year
-		replace laodong = c1 if c1 != . & c2 == .
-		replace laodong = c2 if c1 == . & c2 != .
-			drop if laodong == .
-
-* Create value-added variables:
-
-	gen va = e4 + luong		// e4 is the total profit before tax and luong is the total compensation of employees
-
-* logic check
-	
-	drop if tongdoanhthu < 0 | luong < 0 | tongtaisan < 0 | tscd < 0 | thuethunhap < 0
-	drop if tinh == 97
-	drop if luong == 0 
-	drop if isic3 == 4
-	drop if lhdn == 0
-	drop if isic3 == 0
-
-* divide by cpi to get base value (2010)
-	    gen 	 CPI = 148.44 if year == 2016
-		replace  CPI = 153.68 if year == 2017
-		replace  CPI = 159.11 if year == 2018
-		replace  CPI = 153.56 if year == 2019
-		replace  CPI = 168.83 if year == 2020
-		replace  CPI = 171.93 if year == 2021
-		replace  CPI = 177.3  if year == 2022
+		drop if Code_name == ""
 		
-* get same unit between year
-
-* For example, the variable for statistics is tongdoanhthu, tongtaisan, tscd, thuethunhap, etc. have million VND unit in 2021 and 2022, so we need to divide by 1000000 to get the same unit in 2010.
+	local N = _N
 	
-	foreach var in $stat {
-		replace `var'= `var'/1000000  if year == 2021 
-		replace `var'= `var'/1000000  if year == 2022 
+	forval i = 2000/2021 {
+		file open myfile using `"$tem/label`i'.do"', write text replace
+		
+		local renamed_vars ""
+		forval iii = 1/`N' {
+			local vvvcode = Code_name[`iii']
+			local vvv_i = var_`i'[`iii']  
+			
+			if `"`vvv_i'"' != "" {
+				local result = `"ren `vvv_i' `vvvcode'"'
+				local renamed_vars "`renamed_vars' `vvvcode'"
+				* Ghi dòng kết quả vào tệp do-file
+				file write myfile `"`result'"' _n
+			}
+		}
+		file write myfile `"keep `renamed_vars'"' _n
+	
+		file close myfile
+		}
+```
+After running the code above, Stata will generate 22 do-files, one for each year. These do-files contain commands to synchronize variable names and content across years.
+
+We will now use these do-files to standardize the data. Once the variable names are synchronized, we can easily append the yearly data to create a panel dataset using the following command:
+
+```stata
+// -------------------------------------------------------------------------- //
+**# 1. Rename raw data for each year and make panel data
+// -------------------------------------------------------------------------- //
+	
+clear all
+
+	tempfile combined_data
+	save `combined_data', emptyok replace
+	
+	forval i = 2000/2021 {
+	
+		di "Processing year `i'..."
+	
+		* Load data
+		use "$raw/VES_`i'/dn`i'.dta", clear
+	
+		* Run rename do-file
+		do "$tem/label`i'.do"
+	
+		* Generate year
+		gen year = `i'
+		
+		if year == 2013 {
+			gen huyen = .
+			gen xa = .
+		}
+		
+		foreach var in tinh huyen xa nganh {
+			capture confirm numeric variable `var'
+			if _rc {
+				destring `var', replace force
+				}
+			}
+		
+		* Append safely
+		append using `combined_data'
+	
+		* Save back to tempfile
+		save `combined_data', replace
+	}
+			
+	save "$tem/ves_00_21.dta", replace
+```
+
+The result is a "ves_00_21.dta" file, which is a panel dataset with synchronized variable names. However, since survey content may vary by year, specific adjustments are needed to ensure consistency.
+We use the command below to keep only the variables of interest and order them as desired.
+```stata
+// -------------------------------------------------------------------------- //
+**# 2. Tidy Clean panel data
+// -------------------------------------------------------------------------- //
+	* ssc install keeporder // if you have not installed this package
+
+	use "$tem/ves_00_21.dta", clear
+	
+	keeporder 	mst mst_2 year																	///																	
+				tinh huyen xa 																	///																		
+				namsxkd tthd lhdn lhdn_1 lhdn_2 nganh nganh_cu									///							
+				laodong_dk laodong_ck laodong_nu_ck laodong_nu_dk 								///									
+				luong_0 luong_1 luong_2 luong_3 												///						
+				taisan_tong_dk taisan_tong_ck 													///				
+				taisan_codinh_dk taisan_codinh_ck ng_dk ng_ck hmlk_dk hmlk_ck xdcb_dk xdcb_ck 	///																
+				nophaitra_dk nophaitra_ck														///			
+				tongdoanhthu																	///
+				doanhthubanhang doanhthuthuan giavon giamtru									///								
+				doanhthutaichinh doanhthukhac													///				
+				tongloinhuan thuethunhap  														///			
+				loinhuan_lai loinhuan_lo loinhuan_sau_lai loinhuan_sau_lo						///											
+				nhapkhau xuatkhau xuatnhapkhau																	
+```
+
+Location variables are crucial as they indicate the geographical distribution of enterprises across communes, districts, and provinces. However, these variables may vary across years due to administrative boundary changes. This section is currently being updated, but you can still reliably use province-level data, as provincial boundaries have not changed significantly during the 2000-2021 period.
+
+```stata
+**## 2.1. Clean Location Variables
+* Under development
+```
+Similarly, enterprise types are classified differently in different periods. We have constructed a new classification system that is comprehensive and consistent across years. You can refer to this by copying the link in the code to download the Excel file for details.
+
+The command below merges the enterprise type (`lhdn`) from each year with the new classification, creating a new variable named `lhdn_dpc`.
+
+```stata
+**## 2.2. Clean type of enterprises 
+
+	preserve
+		import excel "https://docs.google.com/spreadsheets/d/1z1FoluAF2u6vSx7LM_uHxjLDjmr7d3JHDB1zvJiu-cs/export?format=xlsx&gid=1229044769", ///
+			clear firstrow
+
+		tempfile cw_lhdn
+		save `cw_lhdn'
+	restore
+
+	merge m:1 lhdn year using `cw_lhdn'
+		drop if _m == 2
+		drop _m
+```	
+
+Industrial classification is much more complex than other variables due to the large number of industry codes and two major revisions: VSIC 2007 and VSIC 2018. We address this by creating crosswalk data files to map new industry codes to old ones, generating three new variables: `vsic4_2018`, `vsic4_2007`, and `vsic4_1993`. This allows users to conveniently choose the industry classification that suits their research purpose.
+The code is quite complex, but the underlying principle is simple.
+
+```stata
+**## 2.3. Clean industrial Classification 
+
+	replace nganh = int(nganh/10) if year == 2004 | year == 2005				// need check
+
+	gen vsic4 = int(nganh/10) if year >= 2004
+		replace vsic4 = nganh if year <= 2003
+
+	preserve
+		use "$tem/cw_vsic_2018_2007_1993", clear
+			duplicates drop vsic4_2018, force
+		save "$tem/cw_vsic_2018", replace
+		
+		use "$tem/cw_vsic_2018_2007_1993", clear
+			duplicates drop vsic4_1993, force
+		save "$tem/cw_vsic_1993", replace
+	restore
+	
+	preserve
+		keep if year >= 2019
+		ren vsic4 vsic4_2018
+		
+		merge m:1 vsic4_2018 using "$tem/cw_vsic_2018"
+			drop if _m == 2
+			drop _m 
+		
+		tempfile vsic4_2018
+		save `vsic4_2018', replace
+	restore
+	
+	preserve
+		keep if year <= 2019 & year >= 2006
+		ren vsic4 vsic4_2007
+		
+		merge m:1 vsic4_2007 using "$tem/cw_vsic_2018_2007_1993"
+			drop if _m == 2
+			drop _m 
+		
+		tempfile vsic4_2007
+		save `vsic4_2007', replace
+	restore
+	
+	preserve
+		keep if year <= 2005
+		ren vsic4 vsic4_1993
+		
+		merge m:1 vsic4_1993 using "$tem/cw_vsic_1993"
+			drop if _m == 2
+			drop _m 
+		
+		tempfile vsic4_1993
+		save `vsic4_1993', replace
+	restore
+	
+	use `vsic4_2018', clear 
+		append using `vsic4_2007'
+		append using `vsic4_1993'
+				
+/*	
+	import excel "https://docs.google.com/spreadsheets/d/1z1FoluAF2u6vSx7LM_uHxjLDjmr7d3JHDB1zvJiu-cs/export?format=xlsx&gid=299465942", ///
+		clear firstrow
+	
+			drop if _n >= 668
+			destring vsic4_2007 vsic4_1993, replace
+			replace vsic4_2007 = int(vsic4_2007/10)
+			keep vsic4_2007 vsic4_1993
+
+			duplicates drop vsic4_2007, force
+			
+		save "$tem/cw_vsic_2007_1993", replace
+		
+		
+	import excel "https://docs.google.com/spreadsheets/d/1z1FoluAF2u6vSx7LM_uHxjLDjmr7d3JHDB1zvJiu-cs/export?format=xlsx&gid=567783578", ///
+		clear firstrow
+	
+			drop if _n >= 471
+			keep vsic4_2018 vsic4_2007
+			
+			duplicates drop vsic4_2007, force		
+
+				merge 1:1 vsic4_2007 using "$tem/cw_vsic_2007_1993"
+					drop if _m == 2
+					drop _m
+		
+		save "$tem/cw_vsic_2018_2007_1993", replace
+					
+*/	
+```
+
+Next, we clean variables with beginning-of-year and end-of-year values. The principle here is to use the `rowmean` command, which handles cases where either the beginning or end value is missing.
+Additionally, international trade variables like export and import are converted to dummy variables (0 for no, 1 for yes). In the raw data, these variables have various formats (import/export value, tax, etc.), so we simplify them to dummies. Note that for those interested in deep trade analysis, import/export values cannot be consistently extracted from the raw data as they were asked in very few years.
+
+```stata
+**## 2.4. Clean labor indicators
+
+		**### Total number of labor
+		egen laodong = rowmean(laodong_dk laodong_ck)				
+
+		**### Total number of female labor
+		egen laodong_nu = rowmean(laodong_nu_dk laodong_nu_dk)				
+				
+		**### Total expenses related to labor
+		egen luong = rowtotal(luong_1 luong_2 luong_3)
+			replace luong = luong_0 if luong_0 != . 
+
+	
+**## 2.5. Clean Asset indicators
+
+		**### Total assets
+		egen tongtaisan = rowmean(taisan_tong_dk taisan_tong_ck)				
+
+		**### Fixed Asset
+		if (year >= 2000 & year <= 2011) | year == 2019 | year == 2020 {
+			egen tscd = rowmean(taisan_codinh_dk taisan_codinh_dk)				
+		}
+		
+		**### Historical cost, accumulated depreciation, onstruction in progress (CIP)
+		foreach var in ng hmlk xdcb {
+			egen `var' = rowmean(`var'_dk `var'_ck)								
+		}
+	
+		replace xdcb = 0 if xdcb == .
+		replace tscd = ng - hmlk + xdcb if  (year >= 2012 & year <= 2018) |	year == 2021
+		
+		**### liabilities
+		egen nophaitra = rowmean(nophaitra_dk nophaitra_ck)						
+			
+**## 2.6. Clean business result indicators 
+			
+		**### Total profit before tax
+		replace tongloinhuan = loinhuan_lai - loinhuan_lo if year == 2000 | year == 2001
+
+
+**## 2.7. Clean trade indicator 
+
+		replace nhapkhau = 0 if nhapkhau == . | (nhapkhau == 2 & year == 2004)	
+		replace xuatkhau = 0 if xuatkhau == . | (xuatkhau == 2 & year == 2004)	
+		
+		replace nhapkhau = 1 if nhapkhau != 0	
+		replace xuatkhau = 1 if xuatkhau != 0 
+
+		replace xuatnhapkhau = 0 if xuatnhapkhau == 2 | xuatnhapkhau == .
+		replace xuatnhapkhau = 1 if xuatkhau == 1 | nhapkhau == 1
+		
+**## 2.8. Keep interested variables 
+		
+	keeporder 	mst mst_2 year																	///																	
+				tinh huyen xa 																	///																		
+				namsxkd tthd lhdn vsic4_2018 vsic4_2007 vsic4_1993  							///							
+				laodong laodong_nu																///									
+				luong							 												///						
+				tongtaisan					 													///				
+				tscd ng hmlk xdcb 																///																
+				nophaitra																		///			
+				tongdoanhthu																	///
+				doanhthubanhang doanhthuthuan giavon giamtru									///								
+				doanhthutaichinh doanhthukhac													///				
+				tongloinhuan thuethunhap  														///			
+				nhapkhau xuatkhau xuatnhapkhau																	
+
+	save "$tem/tiny_data.dta", replace
+```
+
+After cleaning, we need to label the variables for easy understanding and usage.
+
+```stata
+* ---------------------------------------------------------------------------
+**# 3. Label variables and label value 
+* ---------------------------------------------------------------------------
+
+	iecodebook apply using "$tem/codebook_tiny_data.xlsx"
+	
+	save "$cle/ves_00_21.dta", replace 
+	
+	forval val = 2000/2021 {
+		preserve
+			keep if year == `val'
+			save "$cle/ves_`val'.dta", replace 
+		restore
 	}
 
-
-* Deflated to one year base (2010)
-	
-	foreach var in $stat {
-			replace `var'= `var'*100/CPI 
-	}
-
-* get log value of intersted var
-
-	foreach var in $stat {
-		
-		gen 	ln`var'= ln(`var') 		if `var' > 0 & `var' < .
-		replace ln`var'= ln(`var' + 1)  if ln`var' == . 
-		
-	} 
-
 ```
-### Step 5: Final checks
+
+
+
+
+
+
 
 
